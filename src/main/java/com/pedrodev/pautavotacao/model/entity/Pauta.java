@@ -25,7 +25,7 @@ public class Pauta {
     @OneToMany(mappedBy = "pauta")
     private List<Voto> votos;
 
-    @OneToMany(mappedBy = "pauta")
-    private List<SessaoVotacao> sessoesVotacao;
+    @OneToOne(mappedBy = "pauta")
+    private SessaoVotacao sessaoVotacao;
 
 }

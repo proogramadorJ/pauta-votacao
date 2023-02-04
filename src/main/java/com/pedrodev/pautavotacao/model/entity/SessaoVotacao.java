@@ -15,7 +15,7 @@ public class SessaoVotacao {
     @Column(name = "ID")
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "PAUTA_ID", nullable = false)
     private Pauta pauta;
 
@@ -27,5 +27,8 @@ public class SessaoVotacao {
 
     @Column(name = "DATA_CRIACAO", nullable = false)
     private LocalDateTime dataCriacao;
+
+
+
 
 }
