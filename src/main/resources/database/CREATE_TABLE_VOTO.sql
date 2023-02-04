@@ -1,7 +1,11 @@
-CREATE TABLE "USER"(
+CREATE TABLE VOTO(
                        ID BIGINT PRIMARY KEY,
-                       USERNAME VARCHAR(255) NOT NULL UNIQUE,
-                       CREATE_TIME TIMESTAMP NOT NULL
-);
+                       USER_ID BIGINT NOT NULL,
+                       PAUTA_ID BIGINT NOT NULL,
+                       TIPO_VOTO VARCHAR(3) NOT NULL,
+                       DATA_CRIACAO TIMESTAMP NOT NULL,
+                       FOREIGN KEY(USER_ID) REFERENCES USER_SYSTEM(ID),
+                       FOREIGN KEY(PAUTA_ID) REFERENCES PAUTA(ID)
+)
 
-CREATE SEQUENCE user_id_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE voto_id_seq START WITH 1 INCREMENT BY 1

@@ -1,6 +1,7 @@
-CREATE TABLE "USER"(
+CREATE TABLE USER_SYSTEM(
                        ID BIGINT PRIMARY KEY,
-                       USERNAME VARCHAR(255) NOT NULL UNIQUE,
+                       USERNAME VARCHAR(30) NOT NULL UNIQUE,
+                       EMAIL VARCHAR(255) NOT NULL UNIQUE,
                        CREATE_TIME TIMESTAMP NOT NULL
 );
 
