@@ -3,6 +3,7 @@ package com.pedrodev.pautavotacao.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -21,6 +22,9 @@ public class Pauta {
 
     @Column(name = "DESCRICAO", nullable = false)
     private String descricao;
+
+    @Column(name = "DATA_CRIACAO", nullable = false)
+    private LocalDateTime dataCriacao;
 
     @OneToMany(mappedBy = "pauta")
     private List<Voto> votos;

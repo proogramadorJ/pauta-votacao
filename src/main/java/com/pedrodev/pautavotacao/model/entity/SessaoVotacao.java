@@ -28,7 +28,4 @@ public class SessaoVotacao {
     @Column(name = "DATA_CRIACAO", nullable = false)
     private LocalDateTime dataCriacao;
 
-
-
-
 }
