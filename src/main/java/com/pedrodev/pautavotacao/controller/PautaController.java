@@ -47,7 +47,7 @@ public class PautaController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<PautaDTO> findAll(){
-        logger.debug("Request to findAll Pauta");
+        logger.debug("Request to find All Pauta");
         return pautaService.findAll();
     }
 
@@ -57,5 +57,4 @@ public class PautaController {
         logger.debug("Request to delete Pauta {}", id);
         pautaService.deletePauta(id);
     }
-
 }
