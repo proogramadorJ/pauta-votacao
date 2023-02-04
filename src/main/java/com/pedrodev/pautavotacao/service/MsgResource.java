@@ -1,6 +1,6 @@
 package com.pedrodev.pautavotacao.service;
 
-import com.pedrodev.pautavotacao.infra.dto.SimpleMessage;
+import com.pedrodev.pautavotacao.model.dto.SimpleMessage;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 

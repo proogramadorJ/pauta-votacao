@@ -1,6 +1,6 @@
 CREATE TABLE PAUTA(
                         ID BIGINT PRIMARY KEY,
-                        TITULO VARCHAR(255) NOT NULL ,
+                        TITULO VARCHAR(500) NOT NULL ,
                         DESCRICAO VARCHAR ,
                         DATA_CRIACAO TIMESTAMP NOT NULL
 )

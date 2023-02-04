@@ -1,13 +1,13 @@
 package com.pedrodev.pautavotacao.infra.exceptions;
 
-public class MyEntityNotFound extends RuntimeException {
+public class EntityNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = -6943107137497013079L;
 
 	private String code;
 	private Object[] params;
 
-	public MyEntityNotFound(String code, Object... params) {
+	public EntityNotFoundException(String code, Object... params) {
 		this.code = code;
 		this.params = params;
 	}

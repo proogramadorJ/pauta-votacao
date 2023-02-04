@@ -15,21 +15,21 @@ import java.time.LocalDateTime;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    private final ModelMapper modelMapper;
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public UserService (UserRepository userRepository){
         this.userRepository = userRepository;
+        modelMapper = new ModelMapper();
     }
     public UserDTO createUser(UserDTO userDTO) {
         normalize(userDTO);
         verificaSeUsuarioJaCadastrado(userDTO);
         userDTO.setCreateTime(LocalDateTime.now());
 
-        ModelMapper modelMapper = new ModelMapper();
         User newUser = modelMapper.map(userDTO, User.class);
         userRepository.save(newUser);
-        logger.info("New user created {}", userDTO.getUsername());
+        logger.info("User created {}", userDTO.getUsername());
 
         return modelMapper.map(newUser, UserDTO.class);
 

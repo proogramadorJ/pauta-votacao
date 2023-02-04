@@ -1,4 +1,4 @@
-package com.pedrodev.pautavotacao.infra.dto;
+package com.pedrodev.pautavotacao.model.dto;
 
 public class SimpleMessage {
 

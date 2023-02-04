@@ -23,7 +23,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO create(@Validated @RequestBody  UserDTO userDTO){
-        logger.debug("Request to create a new user " + userDTO.getUsername());
+        logger.debug("Request to create a new User " + userDTO.getUsername());
         return userService.createUser(userDTO);
     }
 

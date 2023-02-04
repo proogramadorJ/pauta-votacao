@@ -1,7 +1,8 @@
 package com.pedrodev.pautavotacao.controller;
 
 
-import com.pedrodev.pautavotacao.infra.dto.SimpleMessage;
+import com.pedrodev.pautavotacao.infra.exceptions.EntityNotFoundException;
+import com.pedrodev.pautavotacao.model.dto.SimpleMessage;
 import com.pedrodev.pautavotacao.infra.exceptions.BadRequestException;
 import com.pedrodev.pautavotacao.infra.exceptions.MyInternalServerError;
 import com.pedrodev.pautavotacao.service.MsgResource;
@@ -43,6 +44,13 @@ public class ExceptionHandlerController {
 	@ExceptionHandler(MyInternalServerError.class)
 	public SimpleMessage handleServerErrorException(MyInternalServerError ex) {
 		logger.error("INTERNAL_SERVER_ERROR: {} ", ex.getCode());
+		return msgSource.getSimpleMessage(ex.getCode(), ex.getParams());
+	}
+
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	@ExceptionHandler(EntityNotFoundException.class)
+	public SimpleMessage handleNotFoundException(EntityNotFoundException ex) {
+		logger.warn("NOT_FOUND: " + ex.getMessage(), ex);
 		return msgSource.getSimpleMessage(ex.getCode(), ex.getParams());
 	}
 
