@@ -64,9 +64,8 @@ public class SessaoVotacaoService {
     protected boolean hasOpenSessionByPautaId(Long pautaId) {
         LocalDateTime now = LocalDateTime.now();
         SessaoVotacao sessionVotacao = sessaoVotacaoRepository.findByPautaId(pautaId);
-        if(now.isAfter(sessionVotacao.getDataAbertura()) && now.isBefore(sessionVotacao.getDataEncerramento())){
-           return true;
-        }
-        return false;
+        boolean sessionIsNotNull = sessionVotacao != null;
+
+        return sessionIsNotNull && now.isAfter(sessionVotacao.getDataAbertura()) && now.isBefore(sessionVotacao.getDataEncerramento());
     }
 }

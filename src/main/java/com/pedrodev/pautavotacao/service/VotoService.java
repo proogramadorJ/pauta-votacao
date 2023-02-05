@@ -46,8 +46,8 @@ public class VotoService {
                 .dataCriacao(LocalDateTime.now())
                 .build();
 
-        logger.info("New vote computed for Pauta {} ", votoDTO.getPautaId());
         votoRepository.save(voto);
+        logger.info("New vote computed for Pauta {} ", votoDTO.getPautaId());
     }
 
     private void validaVoto(VotoDTO votoDTO) {
