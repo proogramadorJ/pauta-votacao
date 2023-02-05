@@ -1,6 +1,8 @@
 package com.pedrodev.pautavotacao.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -17,5 +19,8 @@ public class UserDTO {
     @NotEmpty(message = "Email não pode ser vazio")
     @Email
     private String email;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss", iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime createTime;
 }

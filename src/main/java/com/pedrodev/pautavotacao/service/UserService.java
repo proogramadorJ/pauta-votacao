@@ -32,7 +32,6 @@ public class UserService {
         logger.info("User created {}", userDTO.getUsername());
 
         return modelMapper.map(newUser, UserDTO.class);
-
     }
 
     private void verificaSeUsuarioJaCadastrado(UserDTO userDTO) {
@@ -40,9 +39,9 @@ public class UserService {
         if(user != null){
             String newUsername = userDTO.getUsername().trim().toLowerCase();
             if(newUsername.equals(user.getUsername())){
-                throw new BadRequestException("error.user.username.cadastrado", userDTO.getUsername());
+                throw new BadRequestException("error.user.username-cadastrado", userDTO.getUsername());
             }
-            throw new BadRequestException("error.user.email.cadastrado", userDTO.getEmail());
+            throw new BadRequestException("error.user.email-cadastrado", userDTO.getEmail());
         }
     }
 

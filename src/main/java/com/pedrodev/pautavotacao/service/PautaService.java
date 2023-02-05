@@ -69,4 +69,8 @@ public class PautaService {
                 .collect(Collectors.toList());
         return pautasDto;
     }
+
+    protected boolean isPautaExists(Long id){
+        return pautaRepository.existsById(id);
+    }
 }

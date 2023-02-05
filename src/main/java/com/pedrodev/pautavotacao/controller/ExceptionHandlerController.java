@@ -53,5 +53,4 @@ public class ExceptionHandlerController {
 		logger.warn("NOT_FOUND: " + ex.getMessage(), ex);
 		return msgSource.getSimpleMessage(ex.getCode(), ex.getParams());
 	}
-
 }

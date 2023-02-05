@@ -26,5 +26,4 @@ public class UserController {
         logger.debug("Request to create a new User " + userDTO.getUsername());
         return userService.createUser(userDTO);
     }
-
 }
