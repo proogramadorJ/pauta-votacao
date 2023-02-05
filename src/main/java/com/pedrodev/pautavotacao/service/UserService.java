@@ -37,8 +37,7 @@ public class UserService {
     private void verificaSeUsuarioJaCadastrado(UserDTO userDTO) {
         User user = userRepository.findByUsernameOrEmail(userDTO.getUsername(), userDTO.getEmail() );
         if(user != null){
-            String newUsername = userDTO.getUsername().trim().toLowerCase();
-            if(newUsername.equals(user.getUsername())){
+            if(userDTO.getUsername().equals(user.getUsername())){
                 throw new BadRequestException("error.user.username-cadastrado", userDTO.getUsername());
             }
             throw new BadRequestException("error.user.email-cadastrado", userDTO.getEmail());

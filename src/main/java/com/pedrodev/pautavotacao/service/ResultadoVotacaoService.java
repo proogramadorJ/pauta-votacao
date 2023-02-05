@@ -37,7 +37,7 @@ public class ResultadoVotacaoService {
                 .filter(voto -> voto.getTipoVoto() == TipoVoto.NAO)
                 .count();
 
-        ResultadoVotacaoDescricao resultadoVotacaoDescricao = votosSim > votosNao ? PAUTA_APROVADA : votosNao > votosSim ? PAUTA_REJEITADA : EMPATE;
+       ResultadoVotacaoDescricao resultadoVotacaoDescricao = votosSim > votosNao ? PAUTA_APROVADA : votosNao > votosSim ? PAUTA_REJEITADA : EMPATE;
 
        return ResultadoVotacaoDTO.builder()
                .pautaId(pautaId)
