@@ -46,6 +46,18 @@ public class SessaoVotacaoService {
         return modelMapper.map(sessaoVotacao, SessaoVotacaoDTO.class);
     }
 
+    protected boolean hasOpenSessionByPautaId(Long pautaId) {
+        LocalDateTime now = LocalDateTime.now();
+        SessaoVotacao sessionVotacao = sessaoVotacaoRepository.findByPautaId(pautaId);
+        boolean sessionIsNotNull = sessionVotacao != null;
+
+        return sessionIsNotNull && now.isAfter(sessionVotacao.getDataAbertura()) && now.isBefore(sessionVotacao.getDataEncerramento());
+    }
+
+    protected boolean hasSessionByPautaId(Long pautaId) {
+        return sessaoVotacaoRepository.existsByPautaId(pautaId);
+    }
+
     private void validaSessaoVotacao(SessaoVotacaoDTO sessaoVotacaoDTO) {
         if(!pautaService.isPautaExists(sessaoVotacaoDTO.getPauta().getId())){
             throw new BadRequestException("error.sessaovotacao.pauta-nao-econtrada", sessaoVotacaoDTO.getPauta().getId());
@@ -59,13 +71,5 @@ public class SessaoVotacaoService {
         if(encerramentoIsNotNull && dataEncerramento.isBefore(LocalDateTime.now())){
             throw new BadRequestException("error.sessaovotacao.encerramento-invalido");
         }
-    }
-
-    protected boolean hasOpenSessionByPautaId(Long pautaId) {
-        LocalDateTime now = LocalDateTime.now();
-        SessaoVotacao sessionVotacao = sessaoVotacaoRepository.findByPautaId(pautaId);
-        boolean sessionIsNotNull = sessionVotacao != null;
-
-        return sessionIsNotNull && now.isAfter(sessionVotacao.getDataAbertura()) && now.isBefore(sessionVotacao.getDataEncerramento());
     }
 }

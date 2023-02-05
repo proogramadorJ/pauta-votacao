@@ -11,11 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class VotoService {
-
-    private final UserService userService;
 
     private final PautaService pautaService;
 
@@ -25,8 +24,7 @@ public class VotoService {
 
     private static Logger logger = LoggerFactory.getLogger(VotoService.class);
 
-    public VotoService(UserService userService, PautaService pautaService, SessaoVotacaoService sessaoVotacaoService, VotoRepository votoRepository) {
-        this.userService = userService;
+    public VotoService(PautaService pautaService, SessaoVotacaoService sessaoVotacaoService, VotoRepository votoRepository) {
         this.pautaService = pautaService;
         this.sessaoVotacaoService = sessaoVotacaoService;
         this.votoRepository = votoRepository;
@@ -48,6 +46,10 @@ public class VotoService {
 
         votoRepository.save(voto);
         logger.info("New vote computed for Pauta {} ", votoDTO.getPautaId());
+    }
+
+    public List<Voto> findAllByPautaId(Long pautaId) {
+        return votoRepository.findAllByPautaId(pautaId);
     }
 
     private void validaVoto(VotoDTO votoDTO) {
