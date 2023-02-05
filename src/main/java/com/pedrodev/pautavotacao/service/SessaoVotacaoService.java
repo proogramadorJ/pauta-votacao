@@ -18,15 +18,18 @@ public class SessaoVotacaoService {
 
     private final SessaoVotacaoRepository sessaoVotacaoRepository;
     private final PautaService pautaService;
+
+    private final PublicaResultadoVotacaoService publicaResultadoVotacaoService;
     private final ModelMapper modelMapper;
     private static Logger logger = LoggerFactory.getLogger(SessaoVotacaoService.class);
 
     @Value("${session.default-time}")
-    private Integer defaultSessionTime;
+    private String defaultSessionTime;
 
-    public SessaoVotacaoService(SessaoVotacaoRepository sessaoVotacaoRepository, PautaService pautaService) {
+    public SessaoVotacaoService(SessaoVotacaoRepository sessaoVotacaoRepository, PautaService pautaService, PublicaResultadoVotacaoService publicaResultadoVotacaoService) {
         this.sessaoVotacaoRepository = sessaoVotacaoRepository;
         this.pautaService = pautaService;
+        this.publicaResultadoVotacaoService = publicaResultadoVotacaoService;
         this.modelMapper = new ModelMapper();
     }
 
@@ -46,7 +49,7 @@ public class SessaoVotacaoService {
         sessaoVotacaoRepository.save(sessaoVotacao);
         logger.info("New SessaoVotacao created for Pauta {}", sessaoVotacao.getPauta().getId() );
 
-        // TODO criar agendamento aqui
+        publicaResultadoVotacaoService.agendaPublicacaoResultadoVotacao(sessaoVotacao);
         return modelMapper.map(sessaoVotacao, SessaoVotacaoDTO.class);
     }
 

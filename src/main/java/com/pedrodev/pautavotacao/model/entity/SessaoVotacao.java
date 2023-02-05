@@ -3,12 +3,13 @@ package com.pedrodev.pautavotacao.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "SESSAO_VOTACAO")
-public class SessaoVotacao {
+public class SessaoVotacao implements Serializable {
     @Id
     @SequenceGenerator(name = "sessao_votacao_id_seq", sequenceName = "sessao_votacao_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sessao_votacao_id_seq")
