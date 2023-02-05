@@ -40,6 +40,8 @@ public class SessaoVotacaoService {
             sessaoVotacao.setDataEncerramento(now.plusMinutes(1));
         }
         sessaoVotacaoRepository.save(sessaoVotacao);
+        logger.info("New SessaoVotacao created for Pauta {}", sessaoVotacao.getPauta().getId() );
+
         // TODO criar agendamento aqui
         return modelMapper.map(sessaoVotacao, SessaoVotacaoDTO.class);
     }
@@ -57,5 +59,14 @@ public class SessaoVotacaoService {
         if(encerramentoIsNotNull && dataEncerramento.isBefore(LocalDateTime.now())){
             throw new BadRequestException("error.sessaovotacao.encerramento-invalido");
         }
+    }
+
+    protected boolean hasOpenSessionByPautaId(Long pautaId) {
+        LocalDateTime now = LocalDateTime.now();
+        SessaoVotacao sessionVotacao = sessaoVotacaoRepository.findByPautaId(pautaId);
+        if(now.isAfter(sessionVotacao.getDataAbertura()) && now.isBefore(sessionVotacao.getDataEncerramento())){
+           return true;
+        }
+        return false;
     }
 }

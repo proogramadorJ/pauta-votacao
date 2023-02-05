@@ -1,11 +1,17 @@
 package com.pedrodev.pautavotacao.model.entity;
 
 import com.pedrodev.pautavotacao.model.enumeration.TipoVoto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 @Entity
 @Table(name = "VOTO")
