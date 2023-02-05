@@ -21,7 +21,7 @@ public class MsgResource {
 	 * Pega a mensagem correspondente ao codigo no arquivo
 	 * resources/message.properties
 	 *
-	 * @param code odigo no resources/message.properties
+	 * @param code codigo no resources/message.properties
 	 * @param args array de argumentos
 	 * @return string mensagem do arquivo message.properties
 	 */

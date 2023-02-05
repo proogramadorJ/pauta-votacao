@@ -24,8 +24,4 @@ public class SessaoVotacao {
 
     @Column(name = "DATA_ENCERRAMENTO", nullable = false)
     private  LocalDateTime dataEncerramento;
-
-    @Column(name = "DATA_CRIACAO", nullable = false)
-    private LocalDateTime dataCriacao;
-
 }

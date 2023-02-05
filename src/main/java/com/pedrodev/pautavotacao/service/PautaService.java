@@ -1,5 +1,6 @@
 package com.pedrodev.pautavotacao.service;
 
+import com.pedrodev.pautavotacao.infra.exceptions.BadRequestException;
 import com.pedrodev.pautavotacao.infra.exceptions.EntityNotFoundException;
 import com.pedrodev.pautavotacao.model.dto.PautaDTO;
 import com.pedrodev.pautavotacao.model.entity.Pauta;
@@ -21,8 +22,11 @@ public class PautaService {
     private final ModelMapper modelMapper;
     private static Logger logger = LoggerFactory.getLogger(PautaService.class);
 
-    public PautaService(PautaRepository pautaRepository) {
+    private final SessaoVotacaoService sessaoVotacaoService;
+
+    public PautaService(PautaRepository pautaRepository, SessaoVotacaoService sessaoVotacaoService) {
         this.pautaRepository = pautaRepository;
+        this.sessaoVotacaoService = sessaoVotacaoService;
         modelMapper = new ModelMapper();
     }
 
@@ -55,13 +59,13 @@ public class PautaService {
 
     public void deletePauta(Long id) {
         PautaDTO pauta = findPautaById(id);
+        if(sessaoVotacaoService.hasOpenSessionByPautaId(id)){
+            throw new BadRequestException("error.pauta.possui-sessao-associda",  id);
+        }
         logger.info("Pauta {} deleted", id);
         pautaRepository.delete(modelMapper.map(pauta, Pauta.class));
     }
 
-    /**
-     * TODO paginar
-     */
     public List<PautaDTO> findAll() {
         List<PautaDTO> pautasDto = pautaRepository.findAll()
                 .stream()

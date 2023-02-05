@@ -8,6 +8,7 @@ import com.pedrodev.pautavotacao.repository.SessaoVotacaoRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,9 @@ public class SessaoVotacaoService {
     private final PautaService pautaService;
     private final ModelMapper modelMapper;
     private static Logger logger = LoggerFactory.getLogger(SessaoVotacaoService.class);
+
+    @Value("${session.default-time}")
+    private Integer defaultSessionTime;
 
     public SessaoVotacaoService(SessaoVotacaoRepository sessaoVotacaoRepository, PautaService pautaService) {
         this.sessaoVotacaoRepository = sessaoVotacaoRepository;
@@ -33,9 +37,9 @@ public class SessaoVotacaoService {
         LocalDateTime now = LocalDateTime.now();
 
         sessaoVotacao.setPauta(pauta);
-        sessaoVotacao.setDataCriacao(now); // TODO isso é mesmo necessario?
         sessaoVotacao.setDataAbertura(now);
         sessaoVotacao.setDataEncerramento(sessaoVotacaoDTO.getDataEncerramento());
+
         if(sessaoVotacao.getDataEncerramento() == null){
             sessaoVotacao.setDataEncerramento(now.plusMinutes(1));
         }

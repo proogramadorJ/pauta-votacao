@@ -1,9 +1,11 @@
 package com.pedrodev.pautavotacao.service;
 
+import com.pedrodev.pautavotacao.infra.exceptions.BadRequestException;
 import com.pedrodev.pautavotacao.model.dto.UserDTO;
 import com.pedrodev.pautavotacao.model.entity.User;
 import com.pedrodev.pautavotacao.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -24,27 +26,46 @@ public class UserServiceTests {
     @MockBean
     private UserRepository userRepository;
 
-    @Test
-    @DisplayName("Test createUser Success")
-    void testCreateUser(){
+    private User user;
 
-        UserDTO userDTO = UserDTO.builder()
+    private UserDTO userDTO;
+
+    @BeforeEach
+    void init(){
+
+        userDTO = UserDTO.builder()
                 .username("username")
                 .email("email@email.com")
                 .build();
 
-        User user = new User();
+        user = new User();
         user.setId(1L);
         user.setUsername("username");
         user.setEmail("email@email.com");
         user.setCreateTime(LocalDateTime.now());
+    }
+
+    @Test
+    @DisplayName("Test createUser Success")
+    void testCreateUser(){
 
         Mockito.doReturn(null).when(userRepository).findByUsernameOrEmail(userDTO.getUsername(), userDTO.getEmail());
         Mockito.doReturn(user).when(userRepository).save(any());
+        UserDTO savedUserDto =  userService.createUser(userDTO);
 
-       UserDTO savedUserDto =  userService.createUser(userDTO);
-       Assertions.assertNotNull(savedUserDto);
-
+        Assertions.assertNotNull(savedUserDto);
+        Assertions.assertNotNull(savedUserDto.getCreateTime());
     }
 
+    @Test
+    @DisplayName("Test createUser fail when user already registered")
+    void testCreateUserAlreadyRegistered(){
+
+        Mockito.doReturn(user).when(userRepository).findByUsernameOrEmail(userDTO.getUsername(), userDTO.getEmail());
+        BadRequestException exception = Assertions.assertThrows(BadRequestException.class,
+                () -> userService.createUser(userDTO));
+
+        Assertions.assertTrue(exception.getCode().equals("error.user.username-cadastrado"));
+
+    }
 }
