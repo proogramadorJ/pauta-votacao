@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotBlank;
 
 @RestController
-@RequestMapping("/votacao-resultado")
+@RequestMapping("v1/votacao-resultado")
 public class ResultadoVotacaoController {
 
     private final ResultadoVotacaoService resultadoVotacaoService;

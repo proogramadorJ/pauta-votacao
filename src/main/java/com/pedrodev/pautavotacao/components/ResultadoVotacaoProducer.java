@@ -12,14 +12,14 @@ import javax.jms.TextMessage;
 
 @Component
 @Slf4j
-public class JmsProducer {
+public class ResultadoVotacaoProducer {
 
     private final JmsTemplate jmsTemplate;
 
     @Value("${spring.activemq.topic}")
     String topic;
 
-    public JmsProducer(JmsTemplate jmsTemplate) {
+    public ResultadoVotacaoProducer(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
 

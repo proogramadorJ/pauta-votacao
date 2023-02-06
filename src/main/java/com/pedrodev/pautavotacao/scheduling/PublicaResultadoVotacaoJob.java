@@ -1,7 +1,7 @@
 package com.pedrodev.pautavotacao.scheduling;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.pedrodev.pautavotacao.components.JmsProducer;
+import com.pedrodev.pautavotacao.components.ResultadoVotacaoProducer;
 import com.pedrodev.pautavotacao.config.StaticApplicationContext;
 import com.pedrodev.pautavotacao.model.dto.ResultadoVotacaoDTO;
 import com.pedrodev.pautavotacao.service.ResultadoVotacaoService;
@@ -15,7 +15,7 @@ import org.springframework.context.ApplicationContext;
 
 public class PublicaResultadoVotacaoJob implements Job {
 
-    private JmsProducer jmsProducer;
+    private ResultadoVotacaoProducer resultadoVotacaoProducer;
     private ResultadoVotacaoService resultadoVotacaoService;
 
     private ApplicationContext applicationContext = StaticApplicationContext.getContext();
@@ -30,7 +30,7 @@ public class PublicaResultadoVotacaoJob implements Job {
         ResultadoVotacaoDTO resultadoVotacaoDTO = resultadoVotacaoService.getResultByPautaId(pautaId);
         logger.info("Publicando resultado votação");
         try {
-            jmsProducer.sendMessageToTopic(resultadoVotacaoDTO);
+            resultadoVotacaoProducer.sendMessageToTopic(resultadoVotacaoDTO);
             logger.info("Resultado da votação para a pauta {} publicado com sucesso",pautaId);
         } catch (JsonProcessingException e) {
             logger.error("Erro ao tentar publicar resultado da votação para a pauta {} "+e.getMessage(), pautaId);
@@ -38,9 +38,9 @@ public class PublicaResultadoVotacaoJob implements Job {
     }
 
     private void preExecute() {
-        if(resultadoVotacaoService == null || jmsProducer == null ){
+        if(resultadoVotacaoService == null || resultadoVotacaoProducer == null ){
             resultadoVotacaoService = applicationContext.getBean(ResultadoVotacaoService.class);
-            jmsProducer = applicationContext.getBean(JmsProducer.class);
+            resultadoVotacaoProducer = applicationContext.getBean(ResultadoVotacaoProducer.class);
         }
     }
 }

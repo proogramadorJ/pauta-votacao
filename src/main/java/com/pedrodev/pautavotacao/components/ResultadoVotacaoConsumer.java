@@ -8,7 +8,7 @@ import javax.jms.Message;
 import javax.jms.TextMessage;
 
 @Component
-public class JmsConsumer {
+public class ResultadoVotacaoConsumer {
 
     @JmsListener(destination = "resultadovotacaoTopic")
     public void receiveMessageFromTopic(final Message jsonMessage) throws JMSException, JMSException {
@@ -20,5 +20,4 @@ public class JmsConsumer {
             System.out.println("messageData in 2nd listener:"+messageData);
         }
     }
-
 }

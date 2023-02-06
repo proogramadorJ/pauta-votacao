@@ -5,7 +5,7 @@ import com.pedrodev.pautavotacao.model.dto.UserDTO;
 import com.pedrodev.pautavotacao.model.entity.User;
 import com.pedrodev.pautavotacao.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -30,7 +30,7 @@ public class UserServiceTests {
 
     private UserDTO userDTO;
 
-    @BeforeEach
+    @BeforeAll
     void init(){
 
         userDTO = UserDTO.builder()

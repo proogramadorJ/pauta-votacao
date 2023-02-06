@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/voto")
+@RequestMapping("/v1/voto")
 public class VotoController {
 
     private final VotoService votoService;

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pauta")
+@RequestMapping("/v1/pauta")
 public class PautaController {
 
     private final PautaService pautaService;
