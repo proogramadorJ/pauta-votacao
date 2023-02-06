@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotBlank;
 
 @RestController
-@RequestMapping("/api/v1/votacao-resultado")
+@RequestMapping("/api")
 public class ResultadoVotacaoController {
 
     private final ResultadoVotacaoService resultadoVotacaoService;
@@ -21,7 +21,7 @@ public class ResultadoVotacaoController {
         this.resultadoVotacaoService = resultadoVotacaoService;
     }
 
-    @GetMapping("/{pautaId}")
+    @GetMapping("/v1/votacao-resultado/{pautaId}")
     @ResponseStatus(HttpStatus.OK)
     public ResultadoVotacaoDTO getVoteResult(@PathVariable(value = "pautaId") @NotBlank Long pautaId){
          logger.debug("Request to get vote result on Pauta {}", pautaId);

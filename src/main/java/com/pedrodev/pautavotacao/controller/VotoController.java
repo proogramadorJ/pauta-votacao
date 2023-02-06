@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/voto")
+@RequestMapping("/api")
 public class VotoController {
 
     private final VotoService votoService;
@@ -19,7 +19,7 @@ public class VotoController {
         this.votoService = votoService;
     }
 
-    @PostMapping
+    @PostMapping("/v1/voto")
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@Validated @RequestBody VotoDTO userDTO){
         logger.debug("Request to create a new Voto");

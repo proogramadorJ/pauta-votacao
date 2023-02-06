@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
@@ -20,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping("/v1/user")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO create(@Validated @RequestBody  UserDTO userDTO){
         logger.debug("Request to create a new User " + userDTO.getUsername());

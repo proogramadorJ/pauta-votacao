@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/pauta")
+@RequestMapping("/api")
 public class PautaController {
 
     private final PautaService pautaService;
@@ -23,35 +23,35 @@ public class PautaController {
         this.pautaService = pautaService;
     }
 
-    @PostMapping
+    @PostMapping("/v1/pauta")
     @ResponseStatus(HttpStatus.CREATED)
     public PautaDTO create(@Validated @RequestBody PautaDTO pautaDTO){
         logger.debug("Request to create a new Pauta {} ", pautaDTO.getTitulo() );
         return pautaService.createPauta(pautaDTO);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/v1/pauta/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PautaDTO update(@PathVariable(value = "id") @NotBlank Long id, @Validated @RequestBody PautaDTO pautaDTO){
         logger.debug("Request to update a Pauta {}", pautaDTO.getTitulo());
         return pautaService.updatePauta(id, pautaDTO);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/v1/pauta/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PautaDTO find(@PathVariable(value = "id") @NotBlank Long id){
         logger.debug("Request to find Pauta {}", id);
         return pautaService.findPautaById(id);
     }
 
-    @GetMapping
+    @GetMapping("/v1/pauta")
     @ResponseStatus(HttpStatus.OK)
     public List<PautaDTO> findAll(){
         logger.debug("Request to find All Pauta");
         return pautaService.findAll();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/v1/pauta/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable(value = "id") @NotBlank Long id){
         logger.debug("Request to delete Pauta {}", id);
