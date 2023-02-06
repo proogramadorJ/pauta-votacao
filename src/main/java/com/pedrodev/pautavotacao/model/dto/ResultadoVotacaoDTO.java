@@ -6,11 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
 @Builder
 @Data
 @NoArgsConstructor
-public class ResultadoVotacaoDTO {
+public class ResultadoVotacaoDTO implements Serializable {
 
     private Long pautaId;
     private Long votosSim;
