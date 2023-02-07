@@ -8,8 +8,11 @@ import com.pedrodev.pautavotacao.model.enumeration.TipoVoto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.pedrodev.pautavotacao.model.enumeration.ResultadoVotacaoDescricao.*;
+import static com.pedrodev.pautavotacao.model.enumeration.TipoVoto.SIM;
 
 @Service
 public class ResultadoVotacaoService {
@@ -28,21 +31,22 @@ public class ResultadoVotacaoService {
         validaResultadoVotacao(pautaId);
         List<Voto> votos = votoService.findAllByPautaId(pautaId);
 
-        //TODO verificar se é possivel obter ambos os tipos de votos com apenas uma iteração na lista de votos
-       Long votosSim =  votos.stream()
-                .filter(voto -> voto.getTipoVoto() == TipoVoto.SIM)
-                .count();
+        AtomicLong votosSim = new AtomicLong(0L);
+        AtomicLong votosNao = new AtomicLong(0L);
 
-       Long votosNao =  votos.stream()
-                .filter(voto -> voto.getTipoVoto() == TipoVoto.NAO)
-                .count();
+        votos.forEach( a ->{
+            if(a.getTipoVoto() == SIM)
+                votosSim.getAndSet(votosSim.get() + 1);
+            else
+                votosNao.getAndSet(votosNao.get() + 1);
+        });
 
-       ResultadoVotacaoDescricao resultadoVotacaoDescricao = votosSim > votosNao ? PAUTA_APROVADA : votosNao > votosSim ? PAUTA_REJEITADA : EMPATE;
+       ResultadoVotacaoDescricao resultadoVotacaoDescricao = votosSim.get() > votosNao.get() ? PAUTA_APROVADA : votosNao.get() > votosSim.get() ? PAUTA_REJEITADA : EMPATE;
 
        return ResultadoVotacaoDTO.builder()
                .pautaId(pautaId)
-               .votosSim(votosSim)
-               .votosNao(votosNao)
+               .votosSim(votosSim.get())
+               .votosNao(votosNao.get())
                .resultadoVotacaoDescricao(resultadoVotacaoDescricao)
                .build();
     }
