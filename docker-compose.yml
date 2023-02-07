@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  database-service:
+    image: postgres
+    network_mode: host
+    environment:
+      POSTGRES_DB: pautavotacao
+      POSTGRES_PASSWORD: "12345678"
+
+  activemq-service:
+    image: rmohr/activemq
+    environment:
+      ACTIVEMQ_CONFIG_TOPICS_1: "resultadovotacaoTopic"
+    network_mode: host
+
+  consultacpf-service:
+    image: pedro1225/consultacpf-desafio:0.0.1-SNAPSHOT
+    network_mode: host
+
+  pautavotacao-service:
+    image: pedro1225/pautavotacao-desafio:0.0.1-SNAPSHOT
+    network_mode: host
+    depends_on:
+      - database-service
+      - consultacpf-service
+      - activemq-service

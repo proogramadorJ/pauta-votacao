@@ -4,10 +4,7 @@ import com.pedrodev.pautavotacao.infra.exceptions.BadRequestException;
 import com.pedrodev.pautavotacao.model.dto.UserDTO;
 import com.pedrodev.pautavotacao.model.entity.User;
 import com.pedrodev.pautavotacao.repository.UserRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,7 +27,7 @@ public class UserServiceTests {
 
     private UserDTO userDTO;
 
-    @BeforeAll
+    @BeforeEach
     void init(){
 
         userDTO = UserDTO.builder()
