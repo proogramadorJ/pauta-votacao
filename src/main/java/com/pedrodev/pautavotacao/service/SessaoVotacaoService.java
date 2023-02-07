@@ -24,7 +24,7 @@ public class SessaoVotacaoService {
     private static Logger logger = LoggerFactory.getLogger(SessaoVotacaoService.class);
 
     @Value("${session.default-time}")
-    private String defaultSessionTime;
+    private Integer defaultSessionTime;
 
     public SessaoVotacaoService(SessaoVotacaoRepository sessaoVotacaoRepository, PautaService pautaService, PublicaResultadoVotacaoService publicaResultadoVotacaoService) {
         this.sessaoVotacaoRepository = sessaoVotacaoRepository;
@@ -44,7 +44,7 @@ public class SessaoVotacaoService {
         sessaoVotacao.setDataEncerramento(sessaoVotacaoDTO.getDataEncerramento());
 
         if(sessaoVotacao.getDataEncerramento() == null){
-            sessaoVotacao.setDataEncerramento(now.plusMinutes(1));
+            sessaoVotacao.setDataEncerramento(now.plusMinutes(defaultSessionTime));
         }
         sessaoVotacaoRepository.save(sessaoVotacao);
         logger.info("New SessaoVotacao created for Pauta {}", sessaoVotacao.getPauta().getId() );

@@ -11,7 +11,7 @@ import javax.jms.TextMessage;
 public class ResultadoVotacaoConsumer {
 
     @JmsListener(destination = "resultadovotacaoTopic")
-    public void receiveMessageFromTopic(final Message jsonMessage) throws JMSException, JMSException {
+    public void receiveMessageFromTopic(final Message jsonMessage) throws JMSException {
         String messageData = null;
         System.out.println("Received message in 2nd topic " + jsonMessage);
         if(jsonMessage instanceof TextMessage) {
