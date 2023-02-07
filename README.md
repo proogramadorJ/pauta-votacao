@@ -12,6 +12,7 @@ Desafio técnico de uma aplicação de votação de Pautas.
 - Verificação em api externa se um CPF está apto para votar(Tarefa Bônus 1)
 - Públicação e Consumo do resultado da votação após o encerramento, em um tópico do ActiveMQ(Tarefa Bônus 2)
 - API versionada e documentada (Tarefa Bônus 4)
+- Versionamento do banco de dados(flyway)
 
 ## Requisitos
 
@@ -27,6 +28,7 @@ Desafio técnico de uma aplicação de votação de Pautas.
 - Spring
 - ActiveMQ message broker
 - Postgress database
+- Flyway
 - Maven
 - Quartz
 - Swagger
