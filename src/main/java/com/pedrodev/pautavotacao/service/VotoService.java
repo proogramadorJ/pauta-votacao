@@ -59,7 +59,7 @@ public class VotoService {
         if(!sessaoVotacaoService.hasOpenSessionByPautaId(votoDTO.getPautaId())){
             throw new BadRequestException("error.voto.sessao-nao-econtrada", votoDTO.getPautaId());
         }
-        if(votoRepository.existsByUserId(votoDTO.getUserId())){
+        if(votoRepository.existsByUserIdAndPautaId(votoDTO.getUserId(), votoDTO.getPautaId())){
             throw new BadRequestException("error.voto.usuario-ja-votou", votoDTO.getPautaId());
         }
     }

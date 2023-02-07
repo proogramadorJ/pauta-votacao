@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface VotoRepository extends JpaRepository<Voto, Long> {
 
-    boolean existsByUserId(Long userId);
+    boolean existsByUserIdAndPautaId(Long userId, Long pautaId);
 
     List<Voto> findAllByPautaId(Long pautaId);
 }
